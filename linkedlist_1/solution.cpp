@@ -184,3 +184,74 @@ cout<<endl<<tail->data;
 cout<<endl<<head->data;
   return 0;
 }
+///////////////////////////////////////delete a node///////////////////
+#include <iostream>
+using namespace std;
+class node{
+  public:
+     int data;
+     node*next;
+
+     node(int data)
+     {
+       this->data=data;
+       next=NULL;
+     }
+};
+void print(node* &head)
+{
+  node*temp=head;
+  while(temp!=NULL)
+  {
+    cout<<temp->data<<" ";
+    temp=temp->next;
+  }
+}
+void deleteanode(int position,node* &head,node* &tail)
+{
+  if(head==NULL)
+  {
+    cout<<"linkedlist is empty"<<endl;
+    return;
+  }
+  if(position==1)
+  {
+    node*temp=head;
+    head=head->next;
+    temp->next=NULL;
+    delete temp;
+    return;
+  }
+ int i=1;
+ node*prev=head;
+ while(i<position-1)
+ {
+   prev=prev->next;
+   i++;
+ }
+ node*curr=prev->next;
+ prev->next=curr->next;
+ if(curr==NULL)
+ {
+   tail=prev;
+ }
+ curr->next=NULL;
+ delete curr;
+}
+int main() {
+
+node *n1 = new node(10);
+    node *n2 = new node(20);
+    node *n3 = new node(30);
+    node *n4 = new node(40);
+    node *head = n1;
+    node *tail = n4;
+    n1->next = n2;
+    n2->next = n3;
+    n3->next = n4;
+    print(head);
+    cout << endl;
+    deleteanode(1, head, tail);
+    print(head);
+    return 0;
+}
